@@ -1,0 +1,4 @@
+applications:
+  - name: nx-nestjs-hello-world
+    instances: 1
+    buildpack: https://github.com/cloudfoundry/nodejs-buildpack

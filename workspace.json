@@ -1,8 +1,51 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "hello": {
+      "root": "apps/hello",
+      "sourceRoot": "apps/hello/src",
+      "projectType": "application",
+      "prefix": "hello",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "ts-node-builder:build",
+          "options": {
+            "mainInOutput": "dist/out-tsc/apps/hello/src/main.js",
+            "tsconfig": "apps/hello/tsconfig.app.json",
+            "runAndBuild": false
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "hello:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/hello/.eslintrc",
+            "tsConfig": [
+              "apps/hello/tsconfig.app.json",
+              "apps/hello/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/hello/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/hello/jest.config.js",
+            "tsConfig": "apps/hello/tsconfig.spec.json"
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nrwl/nest"
   },
   "schematics": {
     "@nrwl/workspace": {
@@ -48,5 +91,6 @@
         "linter": "eslint"
       }
     }
-  }
+  },
+  "defaultProject": "hello"
 }
